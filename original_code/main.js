@@ -105,7 +105,7 @@ function start(svg) {
     let filledSlotCount = 0;
     const slots = Array.from(svg.querySelectorAll('.slot'))
                        .map(s => new Slot(s));
-
+    console.log(slots);
     const choiceX = 500;
     const choiceY = 25;
     const choices = slots.map((s, i) => 
@@ -123,7 +123,7 @@ function start(svg) {
                             complete(slots);
                         }
                    }));
-
+    console.log(choices);
     for (let choice of choices) {
         choice.render();
     }

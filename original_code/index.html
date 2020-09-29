@@ -6,10 +6,11 @@
     <title>Dragnet</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script type="text/javascript" src="./main.js"></script>
   </head>
   <body>
-
-   <img src="mapofcanada.svg" alt="Map of Canada">
+    <object id="map-object" data="mapofcanada.svg"></object>
+    <!-- <img class="map" src="mapofcanada.svg" alt="Map of Canada"> -->
 
     <style>
       text:not(.slot) {
@@ -17,9 +18,14 @@
       }
     </style>
 
-    <script src="./main.js"></script>
+    <!-- <script type="text/javascript" src="./main.js"></script> -->
     <script>
-      start(document.querySelector('img'));
+      window.addEventListener("load", function() {
+        var mapobject = document.getElementById('map-object').contentDocument;
+        var map = mapobject.getElementById('map_of_canada');
+        console.log(map);
+        start(mapobject.getElementById('map_of_canada'));
+      });
     </script>
   </body>
 </html>
