@@ -41,6 +41,7 @@ class Slot {
 class Choice {
     constructor(svg, value, x, y, onDragStart, onDragEnd) {
         this.svg = svg;
+        // console.log("SVG is: " + this.svg);
         this.value = value;
         this.x = x;
         this.y = y;
@@ -83,6 +84,7 @@ class Choice {
         this.element.setAttribute('y', this.y);
         this.element.style.fill = this.color;
         this.element.textContent = this.value;
+        console.log("Value is: " + this.value);
         if (!this.isRendered) {
             this.svg.appendChild(this.element);
             this.isRendered = true;
@@ -105,7 +107,7 @@ function start(svg) {
     let filledSlotCount = 0;
     const slots = Array.from(svg.querySelectorAll('.slot'))
                        .map(s => new Slot(s));
-
+    console.log(slots);
     const choiceX = 500;
     const choiceY = 25;
     const choices = slots.map((s, i) => 
@@ -123,7 +125,7 @@ function start(svg) {
                             complete(slots);
                         }
                    }));
-
+    console.log(choices);
     for (let choice of choices) {
         choice.render();
     }
