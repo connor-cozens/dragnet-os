@@ -21,12 +21,21 @@
     <!-- EventListener waits for the entire page to load before calling the function -->
     <script>
       window.addEventListener("load", function() {
-        // Retrieves the content of the object, targeting the map not the wrapper.
-        var mapobject = document.getElementById('map-object').contentDocument;
-        // Retrieves the SVG element from the ID tag inside the file
+        // Retrieves the content of the object and targets the svg with the specified id
+        // inside the content document.
+        // MAYBE: Need to add new children objects to content document rather than SVG?
         // TODO: make this relative based on file name? or specified in creation of svg file.
-        var map = mapobject.getElementById('map_of_canada');
-        start(map);
+        var mapobject = document.getElementById('map-object').contentDocument;
+        var mapsvg = mapobject.getElementById('map_of_canada');
+        console.log(mapsvg);
+        
+        // Testing manipulation with SVG files
+        var connor = mapsvg.getElementById('path7732');
+        connor.setAttribute('style', 'fill-color: "red"');
+        console.log(connor);
+
+        // Call the start function in main.js on the mapsvg
+        // start(mapsvg);
       });
     </script>
   </body>
