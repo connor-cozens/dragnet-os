@@ -9,8 +9,8 @@
     <script type="text/javascript" src="./main.js"></script>
   </head>
   <body>
+    <!-- Importing the map svg file from local folder -->
     <object id="map-object" data="mapofcanada.svg"></object>
-    <!-- <img class="map" src="mapofcanada.svg" alt="Map of Canada"> -->
 
     <style>
       text:not(.slot) {
@@ -18,13 +18,15 @@
       }
     </style>
 
-    <!-- <script type="text/javascript" src="./main.js"></script> -->
+    <!-- EventListener waits for the entire page to load before calling the function -->
     <script>
       window.addEventListener("load", function() {
+        // Retrieves the content of the object, targeting the map not the wrapper.
         var mapobject = document.getElementById('map-object').contentDocument;
+        // Retrieves the SVG element from the ID tag inside the file
+        // TODO: make this relative based on file name? or specified in creation of svg file.
         var map = mapobject.getElementById('map_of_canada');
-        console.log(map);
-        start(mapobject.getElementById('map_of_canada'));
+        start(map);
       });
     </script>
   </body>

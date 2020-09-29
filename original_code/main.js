@@ -41,6 +41,7 @@ class Slot {
 class Choice {
     constructor(svg, value, x, y, onDragStart, onDragEnd) {
         this.svg = svg;
+        console.log("SVG is: " + this.svg);
         this.value = value;
         this.x = x;
         this.y = y;
@@ -83,6 +84,7 @@ class Choice {
         this.element.setAttribute('y', this.y);
         this.element.style.fill = this.color;
         this.element.textContent = this.value;
+        console.log("Value is: " + this.value);
         if (!this.isRendered) {
             this.svg.appendChild(this.element);
             this.isRendered = true;
