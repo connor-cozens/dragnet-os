@@ -9,17 +9,17 @@ In JavaScript, the ***'this'*** keyword refers to the object which is *executing
 
 The following code provides a basic example of using the keyword 'this' in a JS environment:
 ```
-function name() {
+function printname() {
     console.log(this.name);
 }
 
-name = "Connor"
-obj1 = {name: "Aidan", name: name};
-obj2 = {name: "Chris", name: name};
+name = "Connor";
+var obj1 = {name: "Aidan", printname: printname};
+var obj2 = {name: "Chris", printname: printname};
 
-name();
-obj1.name();
-obj2.name();
+printname();
+obj1.printname();
+obj2.printname();
 ```
 
 When run, the code outputs the following:
@@ -29,11 +29,22 @@ Aidan
 Chris
 ```
 
-The first call to *name()* calls *this.name* in the name function, which was defined as a **global variable** for the code snippet. The following two calls are executing from the object call (*inside their execution state*) and therefore use those local 'this' values.
+![printname call](/images/implicit_binding_global_call.png)
+
+If we trace the first call to ```printname()```, we can see that the function is being called on our global environment. Thus, the local stack is pointing to the global stack. Therefore, the *this* elements of the local space will refer to all of the values that were defined in the original code.
+
+![obj1 call](/images/implicit_binding_obj1_call.png)
+
+If we trace the second call to ```obj1.printname()```, we can see that the function is being called on the variable created from the obj1 object. Thus, the local stack becomes the values assigned to obj1, ```this.name``` will refer to "Aidan" inside this call, but if you just called ```name``` it would still print *Connor*, as it still exists and can be called as a global variable.
+
+![obj2 call](/images/implicit_binding_obj2_call.png)
+
+If we trace the third call to ```obj2.printname```, we can see that the function is being called on the variable created from the obj2 object. Thus, the local stack becomes the values assigned to obj2, ```this.name``` will refer to "Chris" inside this call, but if you just called ```name``` it would still print *Connor*, as it still exists and can be called from the global environment.
+
 
 ### Implicit Binding
 
-Implicit Binding occurs during an execution state call, i.e. when an object or specific element is called with a function, that becomes the current 'this' state.
+Implicit Binding occurs during an execution state call, i.e. when an object or specific element is called with a function, that becomes the current 'this' state. This switches to the call or local stack, where global variables can still be accessed, but the values of *this* change.
 
 So, the calls in the previous code with obj1 and obj2 are examples of implicit binding.
 
@@ -42,24 +53,32 @@ So, the calls in the previous code with obj1 and obj2 are examples of implicit b
 Explicit Binding occurs when functions such as *call* or *apply* are used, wherein their first parameter becomes the execution context, binding *'this'*.
 
 ```
-var name = function() {
+var printname = function() {
     console.log(this.name);
 }
 
 var name = "Connor";
 var obj1 = {name: "Aidan"};
-var obj2 = {name; "Chris"};
+var obj2 = {name: "Chris"};
 
-var nameCall = name;
-name = function() {
+var nameCall = printname;
+printname = function() {
     nameCall.call(obj1);
 };
 
-name();
-name.call(obj2);
+printname();
+printname.call(obj2);
 ```
 
-In this code snipped, both the calls to name() and name.call() will print the value in obj1. Since we call obj1 in every instance of the name function, that will always be the current execution context. Explicitly defining the execution context for every instance of a function is known as ***fixed binding***.
+![global call](/images/explicit_binding_global_call.png)
+
+If we trace the initial call on printname, we can see that ```printname()``` was defined to call obj1 any time that the printname function is called. Thus, even though obj1 is not explicitly called in this statement, the global variable ```name``` is not called, and the name value inside ```obj1``` will be used. Printing out *Aidan*.
+
+![obj2 call](/images/explicit_binding_obj2_call.png)
+
+The same as the first example, if we trace the second call on printname, the same reasoning applies that since obj1 is explicitly called every time printname is called, the values in the call stack will refliect the values defined for obj1. Thus, even though obj2 is not explicitly called in this statement, the local variable ```this.name = "Chris"``` is not called, and the name value inside ```obj1``` will be used. Printing out *Aidan*.
+
+Explicitly defining the execution context for every instance of a function is known as ***fixed binding***.
 
 ### The ***new*** function call
 
@@ -69,7 +88,7 @@ When the ***new*** keyword is called on a function, it becomes a constructor cal
 3. New object gets bound as ***this*** keyword for execution context of that function call.
 4. If that function does not return anything it implicitly returns the ***this*** object.
 
-In the following code snipped from (codeburst.io)[https://codeburst.io/all-about-this-and-new-keywords-in-javascript-38039f71780c]:
+In the following code snipped from [codeburst.io](https://codeburst.io/all-about-this-and-new-keywords-in-javascript-38039f71780c):
 
 ```
 function bike() {
