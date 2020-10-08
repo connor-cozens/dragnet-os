@@ -104,4 +104,12 @@ obj = new bike();
 console.log(obj.maker);                  // "Kawasaki"
 ```
 
+![new bike call](/images/new_binding_bike_call.png)
+
+As mentioned in the above steps, we can see that when the object is created, the ```bike()``` function creates two variables, the var name and the this.maker. When the ```console.log``` statement is called at the end of the object creation, this.name is undefined, as though var name is created, no value of name is instantiated for the ```this``` variable. And, though ```this.maker``` was created, the call to ```maker``` had no local variable created in the function stack, and thus refers to the global variable ```maker```, "Bajaj".
+
+![console print bike call](/images/new_binding_print_call.png)
+
+When this ```console.log``` statement is called, though we have the ```var name``` defined on the global stack, since the call to the maker attribute of the ```obj``` object changes the ```this``` value to the object stack, and ```this.maker``` refers to "Kawasaki".
+
 We can see that the current execution context is important, as when the new bike object is created, it has empty values, returning an undefined this.name as no value was defined in the current execution state, but prints the maker as that was defined as a global variable, not a ***this*** variable.
