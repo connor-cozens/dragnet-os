@@ -11,7 +11,7 @@ The app needs to be able to check if the labels are placed back into their corre
 
 For example, the below image shows a map of Canada with three labels that have been extracted and turned into interactable objects that can be dragged and placed onto the map for a word matching problem.
 
-![dragnet map example](assets/images/map_example.png)
+![dragnet map example](/dragnet-os/assets/images/map_example.png)
 
 Below are some important functionality that should be considered as the project is developed.
 - Support for multiple language analysis, including right to left language, and top to bottom languages.
