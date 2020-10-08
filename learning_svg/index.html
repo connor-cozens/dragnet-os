@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Learning SVG</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script type="text/javascript" src="./main.js"></script>
+  </head>
+  <body>
+    <!-- Importing the map svg file from local folder -->
+    <object id="connor-object" data="connor.svg"></object>
+
+    <style>
+      text:not(.slot) {
+        cursor: move;
+      }
+    </style>
+
+    <!-- EventListener waits for the entire page to load before calling the function -->
+    <script>
+      window.addEventListener("load", function() {
+        // Retrieves the content of the object and targets the svg with the specified id
+        // inside the content document.
+        // MAYBE: Need to add new children objects to content document rather than SVG?
+        // TODO: make this relative based on file name? or specified in creation of svg file.
+        var connorobject = document.getElementById('connor-object').contentDocument;
+        var connorsvg = connorobject.getElementById('svg8');
+        console.log(connorsvg);
+        
+        // Testing manipulation with SVG files
+        var connor = connorsvg.getElementById('text1125');
+        cx = connor.getAttribute('dx') + 50;
+        cy = connor.getAttribute('dy') + 50;
+
+        connor.setAttribute('dx', cx);
+        connor.setAttribute('dy', cy)
+        console.log(connor);
+
+        // Call the start function in main.js on the mapsvg
+        // start(mapsvg);
+      });
+    </script>
+  </body>
+</html>
