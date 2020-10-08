@@ -3,14 +3,14 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Dragnet</title>
+    <title>Learning SVG</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script type="text/javascript" src="./main.js"></script>
   </head>
   <body>
     <!-- Importing the map svg file from local folder -->
-    <object id="map-object" data="mapofcanada.svg"></object>
+    <object id="connor-object" data="connor.svg"></object>
 
     <style>
       text:not(.slot) {
@@ -25,13 +25,17 @@
         // inside the content document.
         // MAYBE: Need to add new children objects to content document rather than SVG?
         // TODO: make this relative based on file name? or specified in creation of svg file.
-        var mapobject = document.getElementById('map-object').contentDocument;
-        var mapsvg = mapobject.getElementById('map_of_canada');
-        console.log(mapsvg);
+        var connorobject = document.getElementById('connor-object').contentDocument;
+        var connorsvg = connorobject.getElementById('svg8');
+        console.log(connorsvg);
         
         // Testing manipulation with SVG files
-        var connor = mapsvg.getElementById('path7732');
-        connor.setAttribute('style', 'fill-color: "red"');
+        var connor = connorsvg.getElementById('text1125');
+        cx = connor.getAttribute('dx') + 50;
+        cy = connor.getAttribute('dy') + 50;
+
+        connor.setAttribute('dx', cx);
+        connor.setAttribute('dy', cy)
         console.log(connor);
 
         // Call the start function in main.js on the mapsvg
