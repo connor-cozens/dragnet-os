@@ -29,15 +29,15 @@ Aidan
 Chris
 ```
 
-![printname call](/images/implicit_binding_global_call.png)
+![printname call](/assets/images/implicit_binding_global_call.png)
 
 If we trace the first call to ```printname()```, we can see that the function is being called on our global environment. Thus, the local stack is pointing to the global stack. Therefore, the *this* elements of the local space will refer to all of the values that were defined in the original code.
 
-![obj1 call](/images/implicit_binding_obj1_call.png)
+![obj1 call](/assets/images/implicit_binding_obj1_call.png)
 
 If we trace the second call to ```obj1.printname()```, we can see that the function is being called on the variable created from the obj1 object. Thus, the local stack becomes the values assigned to obj1, ```this.name``` will refer to "Aidan" inside this call, but if you just called ```name``` it would still print *Connor*, as it still exists and can be called as a global variable.
 
-![obj2 call](/images/implicit_binding_obj2_call.png)
+![obj2 call](/assets/images/implicit_binding_obj2_call.png)
 
 If we trace the third call to ```obj2.printname```, we can see that the function is being called on the variable created from the obj2 object. Thus, the local stack becomes the values assigned to obj2, ```this.name``` will refer to "Chris" inside this call, but if you just called ```name``` it would still print *Connor*, as it still exists and can be called from the global environment.
 
@@ -70,11 +70,11 @@ printname();
 printname.call(obj2);
 ```
 
-![global call](/images/explicit_binding_global_call.png)
+![global call](/assets/images/explicit_binding_global_call.png)
 
 If we trace the initial call on printname, we can see that ```printname()``` was defined to call obj1 any time that the printname function is called. Thus, even though obj1 is not explicitly called in this statement, the global variable ```name``` is not called, and the name value inside ```obj1``` will be used. Printing out *Aidan*.
 
-![obj2 call](/images/explicit_binding_obj2_call.png)
+![obj2 call](/assets/images/explicit_binding_obj2_call.png)
 
 The same as the first example, if we trace the second call on printname, the same reasoning applies that since obj1 is explicitly called every time printname is called, the values in the call stack will refliect the values defined for obj1. Thus, even though obj2 is not explicitly called in this statement, the local variable ```this.name = "Chris"``` is not called, and the name value inside ```obj1``` will be used. Printing out *Aidan*.
 
@@ -104,11 +104,11 @@ obj = new bike();
 console.log(obj.maker);                  // "Kawasaki"
 ```
 
-![new bike call](/images/new_binding_bike_call.png)
+![new bike call](/assets/images/new_binding_bike_call.png)
 
 As mentioned in the above steps, we can see that when the object is created, the ```bike()``` function creates two variables, the var name and the this.maker. When the ```console.log``` statement is called at the end of the object creation, this.name is undefined, as though var name is created, no value of name is instantiated for the ```this``` variable. And, though ```this.maker``` was created, the call to ```maker``` had no local variable created in the function stack, and thus refers to the global variable ```maker```, "Bajaj".
 
-![console print bike call](/images/new_binding_print_call.png)
+![console print bike call](/assets/images/new_binding_print_call.png)
 
 When this ```console.log``` statement is called, though we have the ```var name``` defined on the global stack, since the call to the maker attribute of the ```obj``` object changes the ```this``` value to the object stack, and ```this.maker``` refers to "Kawasaki".
 
