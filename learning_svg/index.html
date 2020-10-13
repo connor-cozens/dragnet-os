@@ -26,16 +26,19 @@
         // MAYBE: Need to add new children objects to content document rather than SVG?
         // TODO: make this relative based on file name? or specified in creation of svg file.
         var connorobject = document.getElementById('connor-object').contentDocument;
-        var connorsvg = connorobject.getElementById('svg8');
+        var connorsvg = connorobject.getElementById('testbox');
         console.log(connorsvg);
         
         // Testing manipulation with SVG files
-        var connor = connorsvg.getElementById('text1125');
-        cx = connor.getAttribute('dx') + 50;
-        cy = connor.getAttribute('dy') + 50;
+        var connor = connorsvg.getElementById('testtext');
 
-        connor.setAttribute('dx', cx);
-        connor.setAttribute('dy', cy)
+        // connor.setAttribute('transform', "translate(10 0)")
+
+        // cx = connor.getAttribute('dx') + 50;
+        // cy = connor.getAttribute('dy') + 50;
+
+        // connor.setAttribute('dx', cx);
+        // connor.setAttribute('dy', cy)
         console.log(connor);
 
         // Call the start function in main.js on the mapsvg
