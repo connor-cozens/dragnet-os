@@ -3,15 +3,12 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="200.265mm"
-   height="200.265mm"
-   viewBox="0 0 100.265 100.265"
-   id="textbox"
+   width="500px"
+   height="500px"
+   viewBox="0 0 500 500"
+   id="testbox"
    sodipodi:docname="connor.svg">
-   <defs id="defs2"></defs>
-<g
-   id="testlayer"
-   transform="translate(-50.516311,-35.397262)">
+   <defs id="defs2"> <!-- Store the text in the defs to display later --> </defs>
    <rect
       style="
          fill:#ffffff;
@@ -23,38 +20,29 @@
          stroke-dasharray:none;
          stroke-opacity:1"
       id="testsquare"
-      width="50"
-      height="50"
-      x="50.648811"
-      y="35.529762" />
+      width="250px"
+      height="250px"
+      x="0"
+      y="0" />
    <text
       id="testtext"
       style="
          font-style:normal;
          font-weight:normal;
-         font-size:10.5833px;
+         font-size:50px;
          line-height:1.25;
          font-family:sans-serif;
          white-space:pre;
-         shape-inside:url(#testsquare);
          fill:#000000;
          fill-opacity:1;
          stroke:none;
          stroke-width:1;
          stroke-miterlimit:4;
          stroke-dasharray:none;"
-      >
+   >
       <tspan
-         x="-10"
-         y="60">
-         <tspan style="
-            stroke-width:1;
-            stroke-miterlimit:4;
-            stroke-dasharray:none"
-            > 
-            Connor
-         </tspan>
-      </tspan>
+         id = "testspan"
+         x = "40"
+         y = "130">Connor</tspan>
       </text>
-</g>
 </svg>
