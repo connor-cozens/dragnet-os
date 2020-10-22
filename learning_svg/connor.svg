@@ -43,6 +43,48 @@
       <tspan
          id = "testspan"
          x = "40"
-         y = "130">Connor</tspan>
+         y = "60">Connor</tspan>
+      </text>
+      <text
+      id="testtext"
+      style="
+         font-style:normal;
+         font-weight:normal;
+         font-size:50px;
+         line-height:1.25;
+         font-family:sans-serif;
+         white-space:pre;
+         fill:#000000;
+         fill-opacity:1;
+         stroke:none;
+         stroke-width:1;
+         stroke-miterlimit:4;
+         stroke-dasharray:none;"
+   >
+      <tspan
+         id = "testspan"
+         x = "40"
+         y = "130">Aspen</tspan>
+      </text>
+      <text
+      id="testtext"
+      style="
+         font-style:normal;
+         font-weight:normal;
+         font-size:50px;
+         line-height:1.25;
+         font-family:sans-serif;
+         white-space:pre;
+         fill:#000000;
+         fill-opacity:1;
+         stroke:none;
+         stroke-width:1;
+         stroke-miterlimit:4;
+         stroke-dasharray:none;"
+   >
+      <tspan
+         id = "testspan"
+         x = "40"
+         y = "200">Julia</tspan>
       </text>
 </svg>

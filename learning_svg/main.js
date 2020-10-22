@@ -3,6 +3,7 @@ class Slot {
         this.element = element;
         // console.log("This element: " + this.element)
         this.value = element.textContent;
+        // console.log("Element Text Content: " + element.textContent)
         this.value = this.value.replace(/^\s+|\s+$/g, '');
         console.log(this.value)
     }
@@ -45,7 +46,7 @@ class Slot {
 class Choice {
     constructor(svg, value, x, y, onDragStart, onDragEnd) {
         this.svg = svg;
-        // console.log("SVG is: " + this.svg);
+        console.log("SVG is: " + this.svg);
         this.value = value;
         this.value = this.value.replace(/^\s+|\s+$/g, '');
         this.x = x;
@@ -92,7 +93,7 @@ class Choice {
         // console.log(this);
         // console.log("The value of 'this' in the render function: " + this.value);
         this.element.textContent = this.value;
-        // console.log("Value is: " + this.value);
+        console.log("Value is: " + this.value);
         if (!this.isRendered) {
             this.svg.appendChild(this.element);
             this.isRendered = true;
@@ -115,9 +116,10 @@ function start(svg) {
     let filledSlotCount = 0;
     const slots = Array.from(svg.querySelectorAll('#testtext'))
                        .map(s => new Slot(s));
-    // console.log(slots);
+    console.log(slots);
     const choiceX = 270;
     const choiceY = 50;
+    console.log(svg.textContent)
     const choices = slots.map((s, i) => 
         new Choice(svg, svg.textContent, 
                    choiceX, (choiceY * (i+1)),
