@@ -121,7 +121,7 @@ function start(svg) {
     const choiceY = 50;
     console.log(svg.textContent)
     const choices = slots.map((s, i) => 
-        new Choice(svg, svg.textContent, 
+        new Choice(svg, slots[i].value, 
                    choiceX, (choiceY * (i+1)),
                    null, (evt, choice) => {
                         const selectedSlot = slots
