@@ -55,3 +55,9 @@ An issue I encountered recently was once a label was extracted from the SVG and 
 When deciding how to move and place objects, there are multiple different attributes that can be manipulated on an SVG object. The first few ideas I had were to manipulate just the ```x``` and ```y``` values, or to use the ```dx``` and ```dy``` values to change their offset values. The issues with these decisions were that these decisions were also affected by the viewbox, and making specific changes was difficult with relative values. Also, when you would try to edit the text value to change these values, creating the new tag would erase all of the other information beside x and ym like rotation, textLength, etc. and isn't ideal for the manipulation of the objects.
 
 What ended up being a good option was to add a new ```<Transform>``` attribute on to the element to be moved. The transform allow us to change or add to the x and y values of the object, apply rotations, skews, and more without changing the existing code that exists within the tags.
+
+## Jekyll Blog
+
+### Relative Links
+
+On a final note related to this blog post - do not use relative links to try to link to a separate blog post. It will break GitHub pages.
