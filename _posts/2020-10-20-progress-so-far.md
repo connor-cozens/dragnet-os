@@ -21,7 +21,7 @@ As mentioned previously, it is important to let multimedia render completely bef
 
 ### Working with 'this' calls in a non-OO language
 
-Working with JavaScript had some specific intricacies that I was not familiar with. Two of these major points were dealing with calling to 'this' within JS, which I outlined in the post here: {% post_url 2020-09-30-manipulating-'this'-updated %} which goes into more detail. But subsequently, there is an important distinction between the ```=``` operator and the ```=>``` operator for assigning functions which both have important uses and distinctions.
+Working with JavaScript had some specific intricacies that I was not familiar with. Two of these major points were dealing with calling to 'this' within JS, which I outlined in the post above which goes into more detail. But subsequently, there is an important distinction between the ```=``` operator and the ```=>``` operator for assigning functions which both have important uses and distinctions.
 
 ## About SVG Files
 
