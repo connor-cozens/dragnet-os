@@ -5,7 +5,7 @@ class Slot {
         this.value = element.textContent;
         // console.log("Element Text Content: " + element.textContent)
         this.value = this.value.replace(/^\s+|\s+$/g, '');
-        console.log(this.value)
+        // console.log(this.value)
     }
 
     fill(choice) {
@@ -34,7 +34,7 @@ class Slot {
     }
 
     hasCorrectChoice() {
-        console.log("Choice Value: " + this.choice.value + " and this value: " + this.value);
+        // console.log("Choice Value: " + this.choice.value + " and this value: " + this.value);
         return this.choice.value == this.value
     }
 
@@ -46,7 +46,7 @@ class Slot {
 class Choice {
     constructor(svg, value, x, y, onDragStart, onDragEnd) {
         this.svg = svg;
-        console.log("SVG is: " + this.svg);
+        // console.log("SVG is: " + this.svg);
         this.value = value;
         this.value = this.value.replace(/^\s+|\s+$/g, '');
         this.x = x;
@@ -93,7 +93,7 @@ class Choice {
         // console.log(this);
         // console.log("The value of 'this' in the render function: " + this.value);
         this.element.textContent = this.value;
-        console.log("Value is: " + this.value);
+        // console.log("Value is: " + this.value);
         if (!this.isRendered) {
             this.svg.appendChild(this.element);
             this.isRendered = true;
@@ -116,10 +116,17 @@ function start(svg) {
     let filledSlotCount = 0;
     const slots = Array.from(svg.querySelectorAll('#testtext'))
                        .map(s => new Slot(s));
-    console.log(slots);
+    // console.log(slots);
+    for (let slot of slots) {
+        if (!slot.value.includes("_")) {
+            index = slots.indexOf(slot);
+            slots.splice(index, 1);
+        }
+    }
+    // console.log("Slots: ", slots);
     const choiceX = 270;
     const choiceY = 50;
-    console.log(svg.textContent)
+    // console.log(svg.textContent)
     const choices = slots.map((s, i) => 
         new Choice(svg, slots[i].value, 
                    choiceX, (choiceY * (i+1)),
@@ -135,7 +142,7 @@ function start(svg) {
                             complete(slots);
                         }
                    }));
-    console.log(choices);
+    // console.log(choices);
     for (let choice of choices) {
         choice.render();
     }
