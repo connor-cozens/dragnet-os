@@ -7,10 +7,16 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script type="text/javascript" src="./main.js"></script>
+    <style>
+      body {
+        font-size: 36pt;
+      }
+    </style>
   </head>
   <body>
     <!-- Importing the map svg file from local folder -->
-    <object id="connor-object" data="connor.svg"></object>
+    <!-- <object id="connor-object" data="connor.svg"></object> -->
+    <object id = "object" data = "vectormap.svg"></object>
 
     <style>
       text:not(.slot) {
@@ -21,7 +27,37 @@
     <!-- EventListener waits for the entire page to load before calling the function -->
     <script>
       window.addEventListener("load", function() {
-        // Retrieves the content of the object and targets the svg with the specified id
+        // Section for Map Image
+        var object = document.getElementById('object').contentDocument;
+        // console.log(object)
+        var svg = object.getElementsByTagName('svg')[0];
+        // console.log(svg)
+        
+
+        // Get the viewbox and expand the width to make room for labels
+        // viewbox = mapsvg.getAttribute("viewBox");
+        // viewbox = viewbox.split(" ");
+        // xval = viewbox[2];
+        // viewbox[2] = (parseFloat(xval) + 25).toString();
+        // // console.log(viewbox);
+        // newview = "";
+        // for (let i = 0; i < viewbox.length; i++) {
+        //   newview += viewbox[i] + " ";
+        // }
+        // console.log(newview)
+        // mapsvg.setAttribute("viewBox", newview);
+
+        setTimeout(function() {
+          // connor.setAttribute('transform', "translate(50 -20)")
+          start(svg);
+        }, 3000);
+
+        // console.log(connor);
+
+        // Call the start function in main.js on the mapsvg
+        
+        // Section for Custom Image
+        /* // Retrieves the content of the object and targets the svg with the specified id
         // inside the content document.
         // MAYBE: Need to add new children objects to content document rather than SVG?
         // TODO: make this relative based on file name? or specified in creation of svg file.
@@ -39,7 +75,7 @@
 
         // console.log(connor);
 
-        // Call the start function in main.js on the mapsvg
+        // Call the start function in main.js on the mapsvg */
         
       });
     </script>
