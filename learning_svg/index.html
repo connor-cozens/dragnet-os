@@ -16,7 +16,7 @@
   <body>
     <!-- Importing the map svg file from local folder -->
     <!-- <object id="connor-object" data="connor.svg"></object> -->
-    <object id = "map-object" data = "mapofcanada.svg"></object>
+    <object id = "object" data = "vectormap.svg"></object>
 
     <style>
       text:not(.slot) {
@@ -28,25 +28,27 @@
     <script>
       window.addEventListener("load", function() {
         // Section for Map Image
-        var mapobject = document.getElementById('map-object').contentDocument;
-        var mapsvg = mapobject.getElementById('map_of_canada');
+        var object = document.getElementById('object').contentDocument;
+        // console.log(object)
+        var svg = object.getElementsByTagName('svg')[0];
+        // console.log(svg)
 
         // Get the viewbox and expand the width to make room for labels
-        viewbox = mapsvg.getAttribute("viewBox");
-        viewbox = viewbox.split(" ");
-        xval = viewbox[2];
-        viewbox[2] = (parseFloat(xval) + 25).toString();
-        // console.log(viewbox);
-        newview = "";
-        for (let i = 0; i < viewbox.length; i++) {
-          newview += viewbox[i] + " ";
-        }
-        console.log(newview)
-        mapsvg.setAttribute("viewBox", newview);
+        // viewbox = mapsvg.getAttribute("viewBox");
+        // viewbox = viewbox.split(" ");
+        // xval = viewbox[2];
+        // viewbox[2] = (parseFloat(xval) + 25).toString();
+        // // console.log(viewbox);
+        // newview = "";
+        // for (let i = 0; i < viewbox.length; i++) {
+        //   newview += viewbox[i] + " ";
+        // }
+        // console.log(newview)
+        // mapsvg.setAttribute("viewBox", newview);
 
         setTimeout(function() {
           // connor.setAttribute('transform', "translate(50 -20)")
-          start(mapsvg);
+          start(svg);
         }, 3000);
 
         // console.log(connor);

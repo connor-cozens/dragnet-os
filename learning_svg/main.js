@@ -9,6 +9,7 @@ class Slot {
     }
 
     fill(choice) {
+        console.log(this.element)
         this.element.textContent = '';
         this.choice = choice;
         this.choice.choose()
@@ -68,9 +69,8 @@ class Choice {
             }
 
             const onMouseMove = moveEvent => {
-                this.x = moveEvent.clientX / 3.5;
-                console.log("This x: ", this.x, " client x: ", moveEvent.clientX);
-                this.y = moveEvent.clientY / 3.5;
+                this.x = moveEvent.clientX - 30;
+                this.y = moveEvent.clientY;
                 this.render();
             };
             this.svg.addEventListener('mousemove', onMouseMove);
@@ -90,7 +90,7 @@ class Choice {
         this.element.setAttribute('x', this.x);
         this.element.setAttribute('y', this.y);
         this.element.style.fill = this.color;
-        this.element.style.fontSize = "5px";
+        this.element.style.fontSize = "50px";
         // console.log(this);
         // console.log("The value of 'this' in the render function: " + this.value);
         this.element.textContent = this.value;
@@ -114,20 +114,19 @@ class Choice {
 
 
 function start(svg) {
-    identifier = "_";
     let filledSlotCount = 0;
     const slots = Array.from(svg.querySelectorAll('#testtext'))
                        .map(s => new Slot(s));
     // console.log(slots);
     for (let slot of slots) {
-        if (!slot.value.includes(identifier)) {
+        if (!slot.value.includes("_")) {
             index = slots.indexOf(slot);
             slots.splice(index, 1);
         }
     }
-    console.log("Slots: ", slots);
-    const choiceX = 150;
-    const choiceY = 10;
+    // console.log("Slots: ", slots);
+    const choiceX = 270;
+    const choiceY = 50;
     // console.log(svg.textContent)
     const choices = slots.map((s, i) => 
         new Choice(svg, slots[i].value, 
