@@ -1,16 +1,18 @@
 class Slot {
     constructor(element) {
         this.element = element;
-        // console.log("This element: " + this.element)
+        // console.log("This element: " + this.element.x.baseVal.getItem(0).value)
         this.value = element.textContent;
         // console.log("Element Text Content: " + element.textContent)
         this.value = this.value.replace(/^\s+|\s+$/g, '');
         // console.log(this.value)
+        // console.log("Node element: " + this.value + " bounding box: " + this.boundingBox.x);
     }
 
     fill(choice) {
-        console.log(this.element)
+        console.log(this.element);
         this.element.textContent = '';
+        this.element.innerHTML = '';
         this.choice = choice;
         this.choice.choose()
     }
@@ -18,6 +20,7 @@ class Slot {
     isOverlapping(choice) {
         const choiceBB = choice.boundingBox;
         const slotBB = this.boundingBox;
+
 
         const [left, right] = choiceBB.left < slotBB.left
             ? [choiceBB, slotBB]
@@ -40,14 +43,17 @@ class Slot {
     }
 
     get boundingBox() {
-        return this.element.getBoundingClientRect();
+        const bb = this.element.getBoundingClientRect()
+        bb.x = this.element.x.baseVal.getItem(0).value;
+        bb.y = this.element.y.baseVal.getItem(0).value;
+        return bb;
     }
 }
 
 class Choice {
     constructor(svg, value, x, y, onDragStart, onDragEnd) {
         this.svg = svg;
-        // console.log("SVG is: " + this.svg);
+        // console.log("SVG is: " + this.svg + "\nx is: " + x + "\ny is: " + y);
         this.value = value;
         this.value = this.value.replace(/^\s+|\s+$/g, '');
         this.x = x;
@@ -69,7 +75,8 @@ class Choice {
             }
 
             const onMouseMove = moveEvent => {
-                this.x = moveEvent.clientX - 30;
+                this.x = moveEvent.clientX;
+                // console.log("This x: ", this.x, " client x: ", moveEvent.clientX);
                 this.y = moveEvent.clientY;
                 this.render();
             };
@@ -90,7 +97,7 @@ class Choice {
         this.element.setAttribute('x', this.x);
         this.element.setAttribute('y', this.y);
         this.element.style.fill = this.color;
-        this.element.style.fontSize = "50px";
+        this.element.style.fontSize = "15px";
         // console.log(this);
         // console.log("The value of 'this' in the render function: " + this.value);
         this.element.textContent = this.value;
@@ -114,19 +121,35 @@ class Choice {
 
 
 function start(svg) {
+    var texts = svg.getElementsByTagName('text');
+    // console.log(texts)
+    identifier = "_";
     let filledSlotCount = 0;
-    const slots = Array.from(svg.querySelectorAll('#testtext'))
+    const divs = Array.from(svg.getElementsByTagName('div'));
+    // console.log(divs);
+    const slots = Array.from(texts)
                        .map(s => new Slot(s));
     // console.log(slots);
-    for (let slot of slots) {
-        if (!slot.value.includes("_")) {
-            index = slots.indexOf(slot);
-            slots.splice(index, 1);
+    for (let i = 0; i < slots.length; i++) {
+        // console.log(slots[i])
+        if (!slots[i].value.includes(identifier)) {
+            // console.log("Slot: " + slots[i].value + " with index: " + i + " does not contain the identifier.")
+            slots.splice(i, 1);
+            i--;
+        }
+        else {
+            for (let j = 0; j < divs.length; j++) {
+                if (divs[j].innerText == slots[i].value) {
+                    divs[j].innerText = '_____';
+                }
+            }
         }
     }
     // console.log("Slots: ", slots);
-    const choiceX = 270;
-    const choiceY = 50;
+    width = svg.getBoundingClientRect().width;
+    height = svg.getBoundingClientRect().height;
+    const choiceX = width - 100;
+    const choiceY = 20;
     // console.log(svg.textContent)
     const choices = slots.map((s, i) => 
         new Choice(svg, slots[i].value, 
