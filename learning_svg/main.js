@@ -1,4 +1,7 @@
 class Slot {
+    /**
+     * @param {{ textContent: any; }} element
+     */
     constructor(element) {
         this.element = element;
         // console.log("This element: " + this.element.x.baseVal.getItem(0).value)
@@ -10,9 +13,6 @@ class Slot {
     }
 
     fill(choice) {
-        console.log(this.element);
-        this.element.textContent = '';
-        this.element.innerHTML = '';
         this.choice = choice;
         this.choice.choose()
     }
@@ -26,7 +26,7 @@ class Slot {
             ? [choiceBB, slotBB]
             : [slotBB, choiceBB];
 
-        const [top, bottom]  = choiceBB.top < slotBB.top
+        const [top, bottom] = choiceBB.top < slotBB.top
             ? [choiceBB, slotBB]
             : [slotBB, choiceBB];
 
@@ -61,7 +61,7 @@ class Choice {
         this.color = 'black';
         this.isRendered = false;
         this.isChosen = false;
-        this.element = document.createElementNS('http://www.w3.org/2000/svg','text');
+        this.element = document.createElementNS('http://www.w3.org/2000/svg', 'text');
         this.element.addEventListener('mousedown', downEvent => {
             if (this.isChosen) {
                 return;
@@ -119,17 +119,13 @@ class Choice {
     }
 }
 
-
 function start(svg) {
     var texts = svg.getElementsByTagName('text');
-    // console.log(texts)
     identifier = "_";
     let filledSlotCount = 0;
     const divs = Array.from(svg.getElementsByTagName('div'));
-    // console.log(divs);
     const slots = Array.from(texts)
-                       .map(s => new Slot(s));
-    // console.log(slots);
+        .map(s => new Slot(s));
     for (let i = 0; i < slots.length; i++) {
         // console.log(slots[i])
         if (!slots[i].value.includes(identifier)) {
@@ -141,31 +137,36 @@ function start(svg) {
             for (let j = 0; j < divs.length; j++) {
                 if (divs[j].innerText == slots[i].value) {
                     divs[j].innerText = '_____';
+                    divs[j].value = slots[i].value.replace(/_/g, "");
                 }
             }
+            slots[i].value = slots[i].value.replace(/_/g, "")
         }
     }
-    // console.log("Slots: ", slots);
     width = svg.getBoundingClientRect().width;
     height = svg.getBoundingClientRect().height;
     const choiceX = width - 100;
     const choiceY = 20;
-    // console.log(svg.textContent)
-    const choices = slots.map((s, i) => 
-        new Choice(svg, slots[i].value, 
-                   choiceX, (choiceY * (i+1)),
-                   null, (evt, choice) => {
-                        const selectedSlot = slots
-                                .filter(s => !s.hasChoice())
-                                .find(s => s.isOverlapping(choice))
-                        if (selectedSlot) {
-                            selectedSlot.fill(choice);
-                            filledSlotCount++;
+    const choices = slots.map((s, i) =>
+        new Choice(svg, slots[i].value,
+            choiceX, (choiceY * (i + 1)),
+            null, (evt, choice) => {
+                const selectedSlot = slots
+                    .filter(s => !s.hasChoice())
+                    .find(s => s.isOverlapping(choice))
+                if (selectedSlot) {
+                    selectedSlot.fill(choice);
+                    for (let j = 0; j < divs.length; j++) {
+                        if (divs[j].value == choice.value) {
+                            divs[j].innerText = '';
                         }
-                        if (filledSlotCount === slots.length) {
-                            complete(slots);
-                        }
-                   }));
+                    }
+                    filledSlotCount++;
+                }
+                if (filledSlotCount === slots.length) {
+                    complete(slots);
+                }
+            }));
     // console.log(choices);
     for (let choice of choices) {
         choice.render();
@@ -173,9 +174,12 @@ function start(svg) {
 }
 
 function complete(slots) {
+    //
     if (slots.every(s => s.hasCorrectChoice())) {
         alert("You did it!");
-    } else {
+    }
+    // 
+    else {
         alert("Some answers were wrong...:(")
     }
 }
