@@ -97,7 +97,8 @@ class Choice {
         this.value = this.value.replace(/^\s+|\s+$/g, '');
         this.x = x;
         this.y = y;
-        this.color = 'black';
+        this.cursor = 'move';
+        this.color = 'green';
         this.isRendered = false;
         this.isChosen = false;
         this.element = document.createElementNS('http://www.w3.org/2000/svg', 'text');
@@ -138,10 +139,13 @@ class Choice {
      * 
      */
     render() {
+        this.element.setAttribute('class', 'choice');
         this.element.setAttribute('x', this.x);
         this.element.setAttribute('y', this.y);
+        this.element.style.cursor = this.cursor;
         this.element.style.fill = this.color;
         this.element.style.fontSize = "15px";
+        this.element.style.fontWeight = 'bold';
         // console.log(this);
         // console.log("The value of 'this' in the render function: " + this.value);
         this.element.textContent = this.value;
@@ -160,6 +164,7 @@ class Choice {
     choose() {
         this.isChosen = true;
         this.color = 'blue';
+        this.cursor = 'default';
         this.render();
     }
 
@@ -221,8 +226,9 @@ function start(svg) {
                     .find(s => s.isOverlapping(choice))
                 if (selectedSlot) {
                     selectedSlot.fill(choice);
+                    console.log(selectedSlot)
                     for (let j = 0; j < divs.length; j++) {
-                        if (divs[j].value == choice.value) {
+                        if (divs[j].value == selectedSlot.value) {
                             divs[j].innerText = '';
                         }
                     }
