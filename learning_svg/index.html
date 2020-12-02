@@ -7,8 +7,6 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script type="text/javascript" src="./main.js"></script>
-    <script type="text/javascript" src="./Slot.js"></script>
-    <script type="text/javascript" src="./Choice.js"></script>
     <style>
       body {
         font-size: 36pt;
@@ -18,31 +16,35 @@
   <body>
     <h4 style="padding-left: 40px; text-align: left;">Dragnet Interactable Diagrams</h4>
     <!-- Importing the map svg file from local folder -->
-    <object id = "object" data = "vectormap.svg" style="padding-left: 50px;"></object>
+    <object id = "object" data = "vectormap.svg" style="padding: 20px 20px 20px 20px; margin-left: 50px; border: thin solid black"></object>
 
     <style>
       text:not(.slot) {
         cursor: move;
       }
+      .choice {
+        cursor: grab;
+      }
     </style>
 
     <!-- EventListener waits for the entire page to load before calling the function -->
     <script>
+      var backup = document.getElementById('object').data;
       window.addEventListener("load", function() {
-        // Section for Map Image
-        var object = document.getElementById('object').contentDocument;
-        // console.log(object)
-        var svg = object.getElementsByTagName('svg')[0];
-        // console.log(svg)
+        startApp();
+      });
 
+      function startApp() {
+        var object = document.getElementById('object').contentDocument;
+        var svg = object.getElementsByTagName('svg')[0];
         setTimeout(function() {
           start(svg);
-        }, 3000);
-
-        // Call the start function in main.js on the mapsvg */
-        
-      });
+        }, 0);
+      }
     </script>
-    <button onclick="">Reset</button>
+    <button 
+      onclick="
+      window.location.reload();"
+    >Reset</button>
   </body>
 </html>
