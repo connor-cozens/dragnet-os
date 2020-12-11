@@ -36,6 +36,9 @@
 
       function startApp() {
         var object = document.getElementById('object').contentDocument;
+        var styleElement = object.createElementNS("http://www.w3.org/2000/svg", "style");
+        styleElement.textContent = "span { -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;} div { -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;} text { -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;} ";
+        object.getElementsByTagName('svg')[0].appendChild(styleElement);
         var svg = object.getElementsByTagName('svg')[0];
         setTimeout(function() {
           start(svg);
@@ -43,8 +46,7 @@
       }
     </script>
     <button 
-      onclick="
-      window.location.reload();"
+      onclick="window.location.reload();"
     >Reset</button>
   </body>
 </html>
