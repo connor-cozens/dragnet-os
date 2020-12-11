@@ -11,10 +11,34 @@
       body {
         font-size: 36pt;
       }
+      h3 {
+        font-size: 20pt;
+        padding-left: 10px;
+      }
+      ol {
+        font-size: 14pt;
+      }
+      .green {
+        color: green;
+      }
+      .blue {
+        color: blue;
+      }
+      .red {
+        color: #ff00008e;
+      }
+      button {
+        background-color: #ff00008e;
+        color: white;
+        height: 30px;
+        width: 60px;
+        border-radius: 25px;
+        border: 1px solid black;
+      }
     </style>
   </head>
   <body>
-    <h4 style="padding-left: 40px; text-align: left;">Dragnet Interactable Diagrams</h4>
+    <h4 style="padding-left: 35px; text-align: left;">Dragnet Interactable Diagrams</h4>
     <!-- Importing the map svg file from local folder -->
     <object id = "object" data = "vectormap.svg" style="padding: 20px 20px 20px 20px; margin-left: 50px; border: thin solid black"></object>
 
@@ -45,8 +69,15 @@
         }, 0);
       }
     </script>
-    <button 
-      onclick="window.location.reload();"
-    >Reset</button>
+    <button onclick="window.location.reload();">Reset</button>
+    <!-- <br> -->
+    <h3>Instructions</h3>
+    <ol>
+      <li>When an SVG is selected, all text containing an identifier, '_' are extracted and turned into labels.</li>
+      <li>Labels that you can interact with are shown in <em class="green">green</em>.</li>
+      <li>Labels that have been placed can no longer be changes, and are shown in <em class="blue">blue.</em></li>
+      <li>Once all labels are placed, the app will tell you whether you selected them all correctly or not.</li>
+      <li>Selecting the <em class="red">reset button</em> will reset the diagram and all labels to the original positions.</li>
+    </ol>
   </body>
 </html>
