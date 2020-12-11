@@ -121,6 +121,7 @@ class Choice {
                 const windowHeight = this.svg.getBoundingClientRect().height;
                 const windowX = this.svg.getBoundingClientRect().left;
                 const windowY = this.svg.getBoundingClientRect().top;
+                this.svg.style.cursor = "move";
                 if (moveEvent.clientX < windowX || moveEvent.clientX > (windowWidth - elementWidth)) {
                     console.log("Outside of width bounds.");
                 }
@@ -139,6 +140,7 @@ class Choice {
                 if (onDragEnd) {
                     onDragEnd(upEvent, this);
                 }
+                this.svg.style.cursor = "auto";
                 this.svg.removeEventListener('mousemove', onMouseMove);
                 this.svg.removeEventListener('mouseup', onMouseUp);
             };
