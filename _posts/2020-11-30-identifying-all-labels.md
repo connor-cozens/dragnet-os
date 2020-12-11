@@ -1,13 +1,12 @@
 ---
 layout: post
 title: "Progress Update 2"
+excerpt_separator: <!--more-->
 ---
-
-# November Progress Update
 
 ## Identifying All Labels
 
-Since the last progress update, the major change that has been made is that the code no longer operates statically, and works dynamically to detect and select labels based on an identifying character, rather than a hard-coded element ID. Once all the labels with the identifier have been selected, the identifier character is removed from the labels to show just the label text.
+Since the last progress update, the major change that has been made is that the code no longer operates statically, and works dynamically to detect and select labels based on an identifying character, rather than a hard-coded element ID. Once all the labels with the identifier have been selected, the identifier character is removed from the labels to show just the label text. <!--more-->
 
 ## Updating DIV Container
 

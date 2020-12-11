@@ -1,5 +1,6 @@
 name: Dragnet
 description: A tool for building graphical exercises
+excerpt_separator: <!--more-->
 
 # Includes an icon in the footer for each username you enter
 footer-links:
@@ -29,5 +30,3 @@ gems:
 exclude:
   - LICENSE
   - README.md
-
-theme: jekyll-theme-midnight

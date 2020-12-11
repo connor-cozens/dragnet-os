@@ -6,13 +6,15 @@ layout: default
   {% for post in site.posts %}
     <article class="post">
 
+      <p class = "date"><span>{{ post.date | date_to_string }}</span></p>
+
       <h1><a href="{{ post.url | absolute_url }}">{{ post.title }}</a></h1>
 
-      <div class="entry">
-        {{ post.excerpt }}
-      </div>
+      <p class="entry">
+        {{ post.excerpt | strip_html | truncatewords:30}}
+      </p>
 
-      <a href="{{ post.url | absolute_url }}" class="read-more">Read More</a>
+      <a href="{{ post.url | absolute_url }}" class="read-more">Read full post...</a>
     </article>
   {% endfor %}
 </div>

@@ -1,15 +1,14 @@
 ---
 layout: post
 title: "Progress Update 1"
+excerpt_separator: <!--more-->
 ---
-
-# Progress to Date: Mid-October
 
 ## Learning JavaScript
 
 ### Coding and Debugging in JS
 
-Starting this project, I was highly unfamiliar with how to debug both HTML/CSS code and JS scripts. The difference from working in self-contained IDE's and being able to print to consoles, make changes, and just print out to see what was different didn't work for this project. This was especially the case when working with code that relied on browser load times, such as figuring out that a script wasn't running as it was being called before the relevant image was loaded onto the page.
+Starting this project, I was highly unfamiliar with how to debug both HTML/CSS code and JS scripts. The difference from working in self-contained IDE's and being able to print to consoles, make changes, and just print out to see what was different didn't work for this project. This was especially the case when working with code that relied on browser load times, such as figuring out that a script wasn't running as it was being called before the relevant image was loaded onto the page. <!--more-->
 
 This was a major point that I learned about working in a web environment, as different multimedia can take different times to load, render, etc. it is important to locate these different bottleneck points to determine which elements have to be loaded before other scripts can be called.
 

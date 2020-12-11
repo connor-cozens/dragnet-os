@@ -1,11 +1,12 @@
 ---
 layout: post
 title: "What is Dragnet?"
+excerpt_separator: <!--more-->
 ---
 
 ## Dragnet is a continuation of the project located [here][1].
 
-The goal of the project is to create a Javascript Web Application that will extract specified labels from SVG images to create graphical exercises such as fill-in-the-blank and matching problems from images created in PowerPoint, and create an interactable web version where the specified image labels can be moved to their corresponding place.
+The goal of the project is to create a Javascript Web Application that will extract specified labels from SVG images to create graphical exercises such as fill-in-the-blank and matching problems from images created in PowerPoint, and create an interactable web version where the specified image labels can be moved to their corresponding place. <!--more-->
 
 The app needs to be able to check if the labels are placed back into their correct location, with the ability to grade and give feedback to the user based on how many they placed correct or incorrectly.
 

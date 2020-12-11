@@ -1,11 +1,12 @@
 ---
 layout: post
 title: "Converting HTML code to an SVG File"
+excerpt_separator: <!--more-->
 ---
 
 ## Converting the Original HTML Code
 
-This step didn't take too long, the original code that was in the index.html file for the dragnet code had the program that it was created using - inkscape. So, I copied all the SVG code into a new HTML file, imported it into inkscape, and exported it as a proper .SVG file. It contained all of the same values but cleaned up the code and made it easier to read and understand.
+This step didn't take too long, the original code that was in the index.html file for the dragnet code had the program that it was created using - inkscape. So, I copied all the SVG code into a new HTML file, imported it into inkscape, and exported it as a proper .SVG file. It contained all of the same values but cleaned up the code and made it easier to read and understand. <!--more-->
 
 ## Importing the new SVG file into the index.html file
 

@@ -1,17 +1,18 @@
 ---
 layout: post
 title: "Explaining 'This'"
+excerpt_separator: <!--more-->
 ---
 
 ## JavaScript is complicated.
 
-In JavaScript, the ***'this'*** keyword refers to the object which is *executing the current piece of JS code*, or has a *reference to its current execution context*.
+In JavaScript, the ***'this'*** keyword refers to the object which is *executing the current piece of JS code*, or has a *reference to its current execution context*. <!--more-->
 
 The following code provides a basic example of using the keyword 'this' in a JS environment:
 ```
 function printname() {
     console.log(this.name);
-}
+} 
 
 name = "Connor";
 var obj1 = {name: "Aidan", printname: printname};

@@ -1,11 +1,12 @@
 ---
 layout: post
 title: "Manipulating SVG Files"
+excerpt_separator: <!--more-->
 ---
 
 ## The issue with SVG and Object wrappers
 
-After figuring out how to import the SVG as an image through ```<object>``` tags instead of ```<img>``` tags, I was faced with some unexpected issues.
+After figuring out how to import the SVG as an image through ```<object>``` tags instead of ```<img>``` tags, I was faced with some unexpected issues. <!--more-->
 
 ### <img> Tags
 
