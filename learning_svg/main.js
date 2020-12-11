@@ -115,10 +115,23 @@ class Choice {
             }
 
             const onMouseMove = moveEvent => {
-                this.x = moveEvent.clientX;
-                // console.log("This x: ", this.x, " client x: ", moveEvent.clientX);
-                this.y = moveEvent.clientY;
-                this.render();
+                const elementWidth = this.element.getBoundingClientRect().width;
+                const elementHeight = this.element.getBoundingClientRect().height;
+                const windowWidth = this.svg.getBoundingClientRect().width;
+                const windowHeight = this.svg.getBoundingClientRect().height;
+                const windowX = this.svg.getBoundingClientRect().left;
+                const windowY = this.svg.getBoundingClientRect().top;
+                if (moveEvent.clientX < windowX || moveEvent.clientX > (windowWidth - elementWidth)) {
+                    console.log("Outside of width bounds.");
+                }
+                else if (moveEvent.clientY < (windowY + elementHeight) || moveEvent.clientY > windowHeight) {
+                    console.log("Outside of height bounds.");
+                }
+                else {
+                    this.x = moveEvent.clientX;
+                    this.y = moveEvent.clientY;
+                    this.render();
+                }
             };
             this.svg.addEventListener('mousemove', onMouseMove);
 
