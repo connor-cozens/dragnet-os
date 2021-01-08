@@ -53,19 +53,20 @@
 
     <!-- EventListener waits for the entire page to load before calling the function -->
     <script>
-      var backup = document.getElementById('object').data;
+      var backup = document.getElementById('object').data
       window.addEventListener("load", function() {
-        startApp();
+        startApp()
       });
 
       function startApp() {
-        var object = document.getElementById('object').contentDocument;
-        var styleElement = object.createElementNS("http://www.w3.org/2000/svg", "style");
-        styleElement.textContent = "span { -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;} div { -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;} text { -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;} ";
-        object.getElementsByTagName('svg')[0].appendChild(styleElement);
-        var svg = object.getElementsByTagName('svg')[0];
+        var object = document.getElementById('object').contentDocument
+        var styleElement = object.createElementNS("http://www.w3.org/2000/svg", "style")
+        styleElement.textContent = "span { -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;} div { -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;} text { -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;} "
+        object.getElementsByTagName('svg')[0].appendChild(styleElement)
+        var svg = object.getElementsByTagName('svg')[0]
         setTimeout(function() {
-          start(svg);
+          const app = new Dragnet(svg)
+          app.run()
         }, 0);
       }
     </script>
