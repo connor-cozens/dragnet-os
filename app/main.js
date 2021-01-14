@@ -121,7 +121,7 @@ class Choice {
   }
 
   /**
-   * FIXME: documentation!
+   * Function adds mousedown listeners to chosen elements on interaction start.
    */
   addInteractionListeners () {
     this.element.addEventListener('mousedown', downEvent => {
@@ -142,7 +142,8 @@ class Choice {
   }
 
   /**
-   * FIXME: documentation!
+   * Function adds movement listeners to chosen elements when they are being dragged 
+   * around the diagram.
    */
   addMovingListener () {
     const onMouseMove = moveEvent => {
@@ -170,7 +171,8 @@ class Choice {
   }
 
   /**
-   * FIXME: documentation!
+   * Function adds placement listeners to chosen elements for when they are being placed,
+   * removing movement and selected listeners.
    */
   addFinishedMovingListener (onMouseMove) {
     const onMouseUp = upEvent => {
@@ -185,7 +187,8 @@ class Choice {
   }
 
   /**
-   * FIXME: documentation!
+   * Renders the current element by adding it to the SVG element and locking in it's chosen
+   * attributes.
    */
   render () {
     this.element.setAttribute('class', 'choice')
@@ -243,7 +246,8 @@ class Dragnet {
   }
 
   /**
-   * FIXME: documentation!
+   * Returns all text elements from the current svg object that contain the identifier
+   * character as Slot objects.
    */
   extractNodes () {
     const texts = this.svg.getElementsByTagName('text')
@@ -314,7 +318,7 @@ class Dragnet {
   }
 
   /**
-   * FIXME: documentation!
+   * Returns if each slot in the diagram has been answered correctly.
    */
   complete (slots) {
     if (slots.every(s => s.hasCorrectChoice())) {
