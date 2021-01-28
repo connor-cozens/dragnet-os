@@ -233,6 +233,7 @@ class Dragnet {
     this.svg = svg
     this.slots = []
     this.divs = []
+    this.filledSlotCount = 0
   }
 
   /**
@@ -299,7 +300,6 @@ class Dragnet {
    * @param {*} divs List of all div elements which the slots are stored in.
    */
   handleChoice (slots, divs, choice) {
-    let filledSlotCount = 0
     const selectedSlot = slots
       .filter(s => !s.hasChoice())
       .find(s => s.isOverlapping(choice))
@@ -310,9 +310,9 @@ class Dragnet {
           divs[j].innerText = ''
         }
       }
-      filledSlotCount++
+      this.filledSlotCount++
     }
-    if (filledSlotCount === slots.length) {
+    if (this.filledSlotCount === slots.length) {
       this.complete(slots)
     }
   }
