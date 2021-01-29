@@ -234,6 +234,8 @@ class Dragnet {
     this.slots = []
     this.divs = []
     this.filledSlotCount = 0
+    // 0 = no feedback, 1 = all correct/incorrect, 2 = how many correct, 3 = what was incorrect, 4 = what was incorrect and the correct answer
+    this.feedbackMethod = 3
   }
 
   /**
@@ -312,6 +314,7 @@ class Dragnet {
       }
       this.filledSlotCount++
     }
+
     if (this.filledSlotCount === slots.length) {
       this.complete(slots)
     }
@@ -321,10 +324,47 @@ class Dragnet {
    * Returns if each slot in the diagram has been answered correctly.
    */
   complete (slots) {
-    if (slots.every(s => s.hasCorrectChoice())) {
-      alert('You did it!')
+    const correct_choices = slots.filter(s => s.value === s.choice.value)
+    const incorrect_choices = slots.filter(s => s.value !== s.choice.value)
+    const num_correct = correct_choices.length
+    const num_total = slots.length
+
+    if (this.feedbackMethod === 0) {
+        alert(`Your answers have been submitted!`)
+    } else if (this.feedbackMethod === 1) {
+      if (num_correct === num_total) {
+        alert(`Your answers have been submitted, you got everything correct!`)
+      } else {
+        alert(`Your answers have been submitted, some answers were wrong.`)
+      }
+    } else if (this.feedbackMethod === 2) {
+      if (num_correct === num_total) {
+        alert(`You did it! You got ${num_correct}/${num_total} correct!`)
+      } else {
+        alert(`Some answers were wrong, you got ${num_correct}/${num_total} correct!`)
+      }
+    } else if (this.feedbackMethod === 3) {
+      if (num_correct === num_total) {
+        alert(`You did it! You got ${num_correct}/${num_total} correct!`)
+      } else {
+        let alert_message = `Some answers were wrong, you got ${num_correct}/${num_total} correct!`
+        incorrect_choices.forEach(s => {
+          alert_message = alert_message + `\n - You incorrectly marked ${s.choice.value}`
+        })
+        alert(alert_message)
+      }
     } else {
-      alert('Some answers were wrong...:(')
+      if (num_correct === num_total) {
+        alert(`You did it! You got ${num_correct}/${num_total} correct!`)
+      } else {
+        let alert_message = `Some answers were wrong, you got ${num_correct}/${num_total} correct!`
+        incorrect_choices.forEach(s => {
+          alert_message = alert_message + `\n - You incorrectly marked ${s.value} as ${s.choice.value}`
+        })
+        alert(alert_message)
+      }
     }
+
+    
   }
 }
