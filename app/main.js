@@ -22,7 +22,7 @@ class Slot {
    * @param {{ textContent: any; }} element
    * @constructor
    */
-  constructor (element) {
+  constructor(element) {
     this.element = element
     this.value = element.textContent.replace(/^\s+|\s+$/g, '')
   }
@@ -33,7 +33,7 @@ class Slot {
    *
    * @param {{ Choice: any; }} choice
    */
-  fill (choice) {
+  fill(choice) {
     this.choice = choice
     this.choice.choose()
   }
@@ -43,7 +43,7 @@ class Slot {
    *
    * @param {{ Choice: any; }} choice
    */
-  isOverlapping (choice) {
+  isOverlapping(choice) {
     // Retrieve dimension boxes for the choice and slot in question
     const choiceBB = choice.boundingBox
     const slotBB = this.boundingBox
@@ -69,14 +69,14 @@ class Slot {
   /**
    * Used to check if a slot has a valid choice.
    */
-  hasChoice () {
+  hasChoice() {
     return !!this.choice
   }
 
   /**
    * When all labels are placed in slots, checks if a slot was given the correct choice.
    */
-  hasCorrectChoice () {
+  hasCorrectChoice() {
     return this.choice.value === this.value
   }
 
@@ -84,7 +84,7 @@ class Slot {
    * Get the current slot's bounding box.
    *
    */
-  get boundingBox () {
+  get boundingBox() {
     const bb = this.element.getBoundingClientRect()
     bb.x = this.element.x.baseVal.getItem(0).value
     bb.y = this.element.y.baseVal.getItem(0).value
@@ -104,8 +104,12 @@ class Choice {
    * @param {number} y The y-coordinate of the current location of the choice label
    * @param {(arg0: MouseEvent, arg1: this) => void} onDragStart
    */
-  constructor (svg, value, x, y, onDragStart, onDragEnd) {
+  constructor(svg, value, x, y, onDragStart, onDragEnd) {
     this.svg = svg
+    this.fontsize = this.svg.getElementsByTagName('text')[0].getAttribute('font-size')
+    if (!this.fontsize) {
+      this.fontsize = FONT_SIZE
+    }
     this.value = value
     this.value = this.value.replace(/^\s+|\s+$/g, '')
     this.x = x
@@ -123,7 +127,7 @@ class Choice {
   /**
    * Function adds mousedown listeners to chosen elements on interaction start.
    */
-  addInteractionListeners () {
+  addInteractionListeners() {
     this.element.addEventListener('mousedown', downEvent => {
       if (this.isChosen) {
         return
@@ -145,7 +149,7 @@ class Choice {
    * Function adds movement listeners to chosen elements when they are being dragged 
    * around the diagram.
    */
-  addMovingListener () {
+  addMovingListener() {
     const onMouseMove = moveEvent => {
       const elementBB = this.element.getBoundingClientRect()
       const elementWidth = elementBB.width
@@ -174,7 +178,7 @@ class Choice {
    * Function adds placement listeners to chosen elements for when they are being placed,
    * removing movement and selected listeners.
    */
-  addFinishedMovingListener (onMouseMove) {
+  addFinishedMovingListener(onMouseMove) {
     const onMouseUp = upEvent => {
       if (this.onDragEnd) {
         this.onDragEnd(upEvent, this)
@@ -190,13 +194,13 @@ class Choice {
    * Renders the current element by adding it to the SVG element and locking in it's chosen
    * attributes.
    */
-  render () {
+  render() {
     this.element.setAttribute('class', 'choice')
     this.element.setAttribute('x', this.x)
     this.element.setAttribute('y', this.y)
     this.element.style.cursor = this.cursor
     this.element.style.fill = this.color
-    this.element.style.fontSize = FONT_SIZE
+    this.element.style.fontSize = this.fontsize
     this.element.style.fontWeight = 'bold'
     this.element.textContent = this.value
     if (!this.isRendered) {
@@ -209,7 +213,7 @@ class Choice {
    * Marks a choice element as having been chosen, and put into a slot - makes the choice
    * uninteractable.
    */
-  choose () {
+  choose() {
     this.isChosen = true
     this.color = LOCKED_COLOR
     this.cursor = NORMAL_CURSOR
@@ -219,7 +223,7 @@ class Choice {
   /**
    * Gets the bounding box of the choice for determining overlapping.
    */
-  get boundingBox () {
+  get boundingBox() {
     return this.element.getBoundingClientRect()
   }
 }
@@ -229,7 +233,7 @@ class Dragnet {
    * Constructor which sets up relevant values for the Dragnet application.
    * @param {*} svg The SVG file the program is turning into an interactable application.
    */
-  constructor (svg) {
+  constructor(svg) {
     this.svg = svg
     this.slots = []
     this.divs = []
@@ -241,7 +245,7 @@ class Dragnet {
   /**
    * Starts the application, creating and rendering all labels and their slots.
    */
-  run () {
+  run() {
     const vals = this.extractNodes(this.svg)
     this.slots = vals[0]
     this.divs = vals[1]
@@ -252,7 +256,7 @@ class Dragnet {
    * Returns all text elements from the current svg object that contain the identifier
    * character as Slot objects.
    */
-  extractNodes () {
+  extractNodes() {
     const texts = this.svg.getElementsByTagName('text')
     const divs = Array.from(this.svg.getElementsByTagName('div'))
     const slots = Array.from(texts).map(s => new Slot(s))
@@ -279,21 +283,41 @@ class Dragnet {
    * @param {Slot} slots List of all available slots in the application.
    * @param {*} divs List of all div elements which the slots are stored in.
    */
-  renderLabels (svg, slots, divs) {
+  renderLabels(svg, slots, divs) {
     // Statically define where the choice labels are placed
     // TODO: Change to dynamic UI list/box
     const width = svg.getBoundingClientRect().width
     // const height = svg.getBoundingClientRect().height
     const choiceX = width - 100
     const choiceY = 20
+    let ychoices = []
+    for (let j = 0; j < slots.length; j++) { ychoices.push((j + 1) * choiceY) }
+    let shuffled_choices = this.shuffle(ychoices)
     const choices = slots.map((s, i) =>
       new Choice(svg, slots[i].value,
-                 choiceX, (choiceY * (i + 1)),
-                 null,
-                 (evt, choice) => this.handleChoice(slots, divs, choice)))
+        choiceX, shuffled_choices[i],
+        null,
+        (evt, choice) => this.handleChoice(slots, divs, choice)))
     for (const choice of choices) {
       choice.render()
     }
+  }
+
+  /**
+   * Takes an array and returns a randomly shuffled array.
+   * @param {*} array An array to be shuffled.
+   */
+  shuffle(array) {
+    var currentIndex = array.length, temporaryValue, randomIndex
+    while (0 !== currentIndex) {
+      randomIndex = Math.floor(Math.random() * currentIndex)
+      currentIndex -= 1
+
+      temporaryValue = array[currentIndex]
+      array[currentIndex] = array[randomIndex]
+      array[randomIndex] = temporaryValue
+    }
+    return array
   }
 
   /**
@@ -301,7 +325,7 @@ class Dragnet {
    * @param {Slot} slots List of all available slots in the application.
    * @param {*} divs List of all div elements which the slots are stored in.
    */
-  handleChoice (slots, divs, choice) {
+  handleChoice(slots, divs, choice) {
     const selectedSlot = slots
       .filter(s => !s.hasChoice())
       .find(s => s.isOverlapping(choice))
@@ -323,14 +347,14 @@ class Dragnet {
   /**
    * Returns if each slot in the diagram has been answered correctly.
    */
-  complete (slots) {
+  complete(slots) {
     const correct_choices = slots.filter(s => s.value === s.choice.value)
     const incorrect_choices = slots.filter(s => s.value !== s.choice.value)
     const num_correct = correct_choices.length
     const num_total = slots.length
 
     if (this.feedbackMethod === 0) {
-        alert(`Your answers have been submitted!`)
+      alert(`Your answers have been submitted!`)
     } else if (this.feedbackMethod === 1) {
       if (num_correct === num_total) {
         alert(`Your answers have been submitted, you got everything correct!`)
@@ -365,6 +389,6 @@ class Dragnet {
       }
     }
 
-    
+
   }
 }
