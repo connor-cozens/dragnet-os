@@ -48,6 +48,9 @@ class Slot {
     const choiceBB = choice.boundingBox
     const slotBB = this.boundingBox
 
+    console.log('choice at: ', choiceBB)
+    console.log('slot at: ', slotBB)
+
     // Decide which element is on the left and which is on the right
     const [leftmostElement, rightmostElement] = choiceBB.left < slotBB.left
       ? [choiceBB, slotBB]
@@ -259,23 +262,58 @@ class Dragnet {
   extractNodes() {
     const texts = this.svg.getElementsByTagName('text')
     const divs = Array.from(this.svg.getElementsByTagName('div'))
-    const slots = Array.from(texts).map(s => new Slot(s))
-    // Remove all slots that don't include the identifier
-    for (let i = 0; i < slots.length; i++) {
-      if (!slots[i].value.includes(IDENTIFIER)) {
-        slots.splice(i, 1)
-        i--
-      } else {
-        for (let j = 0; j < divs.length; j++) {
-          if (divs[j].innerText === slots[i].value) {
-            divs[j].innerText = '_____'
-            divs[j].value = slots[i].value.replace(/_/g, '')
+    console.log('divs', divs)
+    // const tspans = Array.from(this.svg.getElementsByTagName('tspan'))
+    // console.log('tspans', tspans)
+    console.log('text', texts)
+    // Handle tspan Elements
+    if (divs.length == 0) {
+      const slots = Array.from(texts).map(s => new Slot(s))
+      // Remove all slots that don't include the identifier
+      for (let i = 0; i < slots.length; i++) {
+        // console.log(slots[i])
+        if (!slots[i].value.includes(IDENTIFIER)) {
+          slots.splice(i, 1)
+          i--
+        } else {
+          for (let j = 0; j < texts.length; j++) {
+            texts[j].textContent = texts[j].textContent.trim()
+            // console.log(texts[j].textContent)
+            // console.log(slots[i].value)
+            if (texts[j].textContent === slots[i].value) {
+              console.log(texts[j])
+              texts[j].innerHTML = '_____'
+              texts[j].value = slots[i].value.replace(/_/g, '')
+              console.log(texts[j].value)
+            }
           }
+          slots[i].value = slots[i].value.replace(/_/g, '')
         }
-        slots[i].value = slots[i].value.replace(/_/g, '')
       }
+      console.log('Slots: ', slots)
+      console.log('texts: ', texts)
+      return [slots, texts]
     }
-    return [slots, divs]
+    // Handle div Elements
+    else {
+      const slots = Array.from(divs).map(s => new Slot(s))
+      // Remove all slots that don't include the identifier
+      for (let i = 0; i < slots.length; i++) {
+        if (!slots[i].value.includes(IDENTIFIER)) {
+          slots.splice(i, 1)
+          i--
+        } else {
+          for (let j = 0; j < divs.length; j++) {
+            if (divs[j].innerText === slots[i].value) {
+              divs[j].innerText = '_____'
+              divs[j].value = slots[i].value.replace(/_/g, '')
+            }
+          }
+          slots[i].value = slots[i].value.replace(/_/g, '')
+        }
+      }
+      return [slots, divs]
+    }
   }
 
   /**
@@ -332,6 +370,7 @@ class Dragnet {
     if (selectedSlot) {
       selectedSlot.fill(choice)
       for (let j = 0; j < divs.length; j++) {
+        console.log('value: ', divs[j].value, '\nslot value: ', selectedSlot.value)
         if (divs[j].value === selectedSlot.value) {
           divs[j].innerText = ''
         }
